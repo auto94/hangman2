@@ -39,7 +39,6 @@ int main(void) {
 		temp_letter = getchar();
 		temp_letter_included = 0;
 
-
 		for (int i = 0; i < size; i++) {
 			if (temp_letter == word[i]) {
 				correct_letters[i] = 1;
@@ -47,16 +46,16 @@ int main(void) {
 				temp_letter_included = 1;
 				place_in_word = i + 1;
 
-
-				printf("\nThe letter is in the word, specifically in place: %d", i);
+				printf("\nThe letter is in the word, specifically in place: %d", place_in_word);
 			}
-
-			if (temp_letter_included != 1) {
-				error_count++;
-			}
-
 		}
 
+		if (temp_letter_included == 0) {
+				error_count++;
+				printf("\nThe letter %c is not in the word", temp_letter);
+			}
+
+		printf("\n"); //nova vrsta za izpit crtic
 		for (int i = 0; i < size; i++) {
 			if (correct_letters[i] == 1) {
 				printf(" %c ", word[i]);
@@ -68,9 +67,9 @@ int main(void) {
 	}
 
 	if (correct_sum == size) {
-				word_complete = 1;
-				printf("\nYou've successfully guessed the word! Congratulations!\n");
-			}
+			word_complete = 1;
+			printf("\nYou've successfully guessed the word! Congratulations!\n");
+		}
 
 	else if (error_count >= 5) {
 		printf("\nYou've made too many mistakes! Try again from the start.\n");
