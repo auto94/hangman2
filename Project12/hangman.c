@@ -32,10 +32,11 @@ int main(void) {
 		correct_letters[i] = 0;
 	}
 
-	while (error_count < 5 && (correct_sum < size)) {
+	while (error_count < 5) {
 
 		printf("\nCurrent errors: %d", error_count);
 		printf("\nEnter a letter: ");
+		fflush(stdout);
 		temp_letter = getchar();
 		temp_letter_included = 0;
 
@@ -63,6 +64,10 @@ int main(void) {
 			else {
 				printf(" _ ");
 			}
+		}
+
+		if (correct_sum == size) {
+			break;
 		}
 	}
 
