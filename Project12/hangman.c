@@ -1,8 +1,8 @@
 /*
-	PROGRAM: HANGAM
+	PROGRAM: HANGMAN
 	VERSION 1.0
 	CURRENTLY: WORD INPUT BY USER, LETTERS INPUT BY USER
-	
+
 	FUTURE VERSION: WORD TAKEN BY RANDOM FROM DATABASE
 */
 
@@ -18,74 +18,77 @@ int main(void) {
 	int error_count = 0;	//number of incorrect guesses, has to be below a certain number or you've failed
 	int word_complete = 0;	//flag for complete word, simlar to correct_sum
 	char temp_letter;	//stores the single letter which user input (and has to be checked if it is in word string)
-	int temp_letter_included = 0;	//checks if temp_letter was found in word. Prevents error_count from going up for every incorrect letter placement
+	int temp_letter_included = 1;	//checks if temp_letter was found in word. Prevents error_count from going up for every incorrect letter placement
 	int place_in_word;	//for printing out the place of a correctly chosen letter in the original word. Essentially i+1
 
-	printf("\nPlease input the word: ");
+
+	printf("\n Please input the word: ");
 	fgets(word, 20, stdin);
 
 	size = strlen(word) - 1;
 
 
+	//zacetni izpis podcrtajev namesto crk
 	for (int i = 0; i < size; i++) {
-		printf("_\t");
+		printf(" _ ");
 		correct_letters[i] = 0;
 	}
 
-	while (error_count < 5) {
 
-		printf("\nCurrent errors: %d", error_count);
-		printf("\nEnter a letter: ");
-		fflush(stdout);
+	printf("\n Enter the letters, one by one: ");
+	//sprejemanje crk dokler ni prevec errorjev ali ni dovolj pravilnih crk
+	while (error_count < 5 && (correct_sum < size)) {
+		
 		temp_letter = getchar();
 		temp_letter_included = 0;
 
-		for (int i = 0; i < size; i++) {
-			if (temp_letter == word[i]) {
-				correct_letters[i] = 1;
-				correct_sum++;
-				temp_letter_included = 1;
-				place_in_word = i + 1;
+		if (temp_letter != '\n') {
 
-				printf("\nThe letter is in the word, specifically in place: %d", place_in_word);
+			
+
+			for (int i = 0; i < size; i++) {
+				if (temp_letter == word[i]) {
+					correct_letters[i] = 1;
+					correct_sum++;
+					temp_letter_included = 1;
+					place_in_word = i + 1;
+
+					printf("\n The letter is in the word, specifically in place: %d", place_in_word);
+				}
 			}
-		}
 
-		if (temp_letter_included == 0) {
+			if (temp_letter_included == 0) {
 				error_count++;
-				printf("\nThe letter %c is not in the word", temp_letter);
+				printf("\n The letter %c is not in the word.", temp_letter);
 			}
 
-		printf("\n"); //nova vrsta za izpit crtic
-		for (int i = 0; i < size; i++) {
-			if (correct_letters[i] == 1) {
-				printf(" %c ", word[i]);
+			printf("\n Current errors: %d", error_count);
+			printf("\n");
+			for (int i = 0; i < size; i++) {
+				if (correct_letters[i] == 1) {
+					printf(" %c ", word[i]);
+				}
+				else {
+					printf(" _ ");
+				}
 			}
-			else {
-				printf(" _ ");
-			}
+		}
+		else {
+			printf("\n Enter your next guess: ");
 		}
 
-		if (correct_sum == size) {
-			break;
-		}
 	}
 
 	if (correct_sum == size) {
-			word_complete = 1;
-			printf("\nYou've successfully guessed the word! Congratulations!\n");
-		}
-
+		word_complete = 1;
+		printf("\n You've successfully guessed the word! Congratulations!\n");
+	}
 	else if (error_count >= 5) {
-		printf("\nYou've made too many mistakes! Try again from the start.\n");
+		printf("\n You've made too many mistakes! Try again from the start.\n");
 	}
 
-
-	printf("\nSize: %d", size);
-	printf("\nWord is: %s", word);
-
-
-
+	printf("\n Size: %d", size);
+	printf("\n Word is: %s", word);
 
 	return 0;
 }
