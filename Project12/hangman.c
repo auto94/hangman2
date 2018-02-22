@@ -12,7 +12,7 @@
 
 int main(void) {
 	char word[20];	//word to be guessed, input by user
-	int correct_letters[20];	//array of 0/1s which tells us if a letter in word has been correctly guessed so far
+	int correct_letters[20] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};	//array of 0/1s which tells us if a letter in word has been correctly guessed so far
 	int correct_sum = 0;	//if size of word = number of correct_letters (AKA correct_sum), tells us if every letter has been guessed **SHORTCUT**
 	int size = 0;	//stores length of input word (using strlen)
 	int error_count = 0;	//number of incorrect guesses, has to be below a certain number or you've failed
@@ -20,6 +20,12 @@ int main(void) {
 	char temp_letter;	//stores the single letter which user input (and has to be checked if it is in word string)
 	int temp_letter_included = 1;	//checks if temp_letter was found in word. Prevents error_count from going up for every incorrect letter placement
 	int place_in_word;	//for printing out the place of a correctly chosen letter in the original word. Essentially i+1
+
+	//ADDING FOR RANDOM WORD SELECT FROM LOADED FILE:
+	/*
+	FILE * listofwords;
+	listofwords = fopen("words.txt", "r");
+	*/
 
 
 	printf("\n Please input the word: ");
@@ -44,12 +50,18 @@ int main(void) {
 
 		if (temp_letter != '\n') {
 
-			
-
 			for (int i = 0; i < size; i++) {
+
 				if (temp_letter == word[i]) {
-					correct_letters[i] = 1;
-					correct_sum++;
+
+					if (correct_letters[i] == 0) {
+						correct_letters[i] = 1;
+						correct_sum++;
+					}
+					else {
+						printf("\n You've already guessed this letter, you fuck.");
+					}
+
 					temp_letter_included = 1;
 					place_in_word = i + 1;
 
@@ -87,7 +99,7 @@ int main(void) {
 		printf("\n You've made too many mistakes! Try again from the start.\n");
 	}
 
-	printf("\n Size: %d", size);
+	//printf("\n Size: %d", size);
 	printf("\n Word is: %s", word);
 
 	return 0;
