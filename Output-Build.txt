@@ -1,0 +1,6 @@
+﻿1>------ Build started: Project: Project12, Configuration: Debug Win32 ------
+1>hangman.c
+1>c:\users\auto1\source\repos\project12\project12\hangman.c(66): warning C4129: 'N': unrecognized character escape sequence
+1>Project12.vcxproj -> C:\Users\auto1\source\repos\Project12\Debug\Project12.exe
+1>Done building project "Project12.vcxproj".
+========== Build: 1 succeeded, 0 failed, 0 up-to-date, 0 skipped ==========
