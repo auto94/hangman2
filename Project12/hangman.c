@@ -1,9 +1,11 @@
 /*
 	PROGRAM: HANGMAN
 	VERSION 1.0
-	CURRENTLY: WORD INPUT BY USER, LETTERS INPUT BY USER
 
-	FUTURE VERSION: WORD TAKEN BY RANDOM FROM DATABASE
+	CURRENT VERSION: WORD TAKEN BY RANDOM FROM DATABASE
+
+	FUTURE DEVELOPMENT: Making it so that you can't get multiple errors by repeatingly guessing the same wrong letter
+	(basicly keeping a log of previous mistakes, and comparing them to the current letter in a for loop)
 */
 
 #pragma warning(disable:4996)	//disables fopen error
@@ -54,7 +56,7 @@ int main(void) {
 					for (int j = 0; j < size; j++) {
 						word[j] = string_from_file[previous_space + j + 1];
 					}
-					word[size] = '\0';
+					word[size] = '\0'; //doda znak za konec za zadnim mestom ki ga zaseda beseda
 					
 				}
 				if (word[0] == '0') {
